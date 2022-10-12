@@ -144,8 +144,6 @@ class MyGUI:
 
         finaltotal=round(total)
         
-        
-
 
         #the first is the title of the box, and the second is the message)
         tkinter.messagebox.showinfo('My Pizza Price', "Name of Customer: " + str(name) +'\n'+ '\n'+ self.message + '\nPrice of my pizza: $' + str(format(finaltotal,'.2f')))

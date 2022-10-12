@@ -30,7 +30,7 @@ class MyGUI:
         self.main_window= tkinter.Tk()
 
         #geometry is how big the window will be when you run it
-        self.main_window.geometry('750x200')
+        self.main_window.geometry('600x400')
 
         #title is the title of the window that will show up at the top of the text box
         self.main_window.title("Shorty's Pizza Price Calculator")
@@ -42,7 +42,7 @@ class MyGUI:
 
 
 #label and entry for name
-        self.name_label=tkinter.Label(self.topframe, text='Customer Name: ')
+        self.name_label=tkinter.Label(self.topframe, text='Customer Name: ', fg='red')
 
         self.name_entry = tkinter.Entry(self.topframe, width=20)
 
@@ -52,15 +52,15 @@ class MyGUI:
         self.topframe.pack()
 
 #radio buttons for type of crust
-        self.crustlabel= tkinter.Label(self.crustframe, text='Choose your crust')
+        self.crustlabel= tkinter.Label(self.crustframe, text='Choose your crust', fg='red')
 
         self.crustlabel.pack()
 
         self.crust_var=tkinter.IntVar()
 
-        self.thin=tkinter.Radiobutton(self.crustframe,text='Thin Crust',variable=self.crust_var, value= 10)
-        self.regular=tkinter.Radiobutton(self.crustframe,text='Regular Crust',variable=self.crust_var, value= 12)
-        self.stuffed=tkinter.Radiobutton(self.crustframe,text='Stuffed Crust',variable=self.crust_var, value= 15)
+        self.thin=tkinter.Radiobutton(self.crustframe,text='Thin Crust',variable=self.crust_var, value= 10, fg='blue')
+        self.regular=tkinter.Radiobutton(self.crustframe,text='Regular Crust',variable=self.crust_var, value= 12, fg='blue')
+        self.stuffed=tkinter.Radiobutton(self.crustframe,text='Stuffed Crust',variable=self.crust_var, value= 15, fg='blue')
         
         self.thin.pack()
         self.regular.pack()
@@ -70,7 +70,7 @@ class MyGUI:
         self.crustframe.pack()
 #check boxes for toppings
 
-        self.toppinglabel= tkinter.Label(self.toppingframe, text='Check which toppings you want')
+        self.toppinglabel= tkinter.Label(self.toppingframe, text='Check which toppings you want',fg='red')
 
         self.toppinglabel.pack()
 
@@ -80,11 +80,11 @@ class MyGUI:
         self.peppers_var=tkinter.IntVar()
         self.mushrooms_var=tkinter.IntVar()
 
-        self.cheese=tkinter.Checkbutton(self.toppingframe, text="Cheese", variable=self.cheese_var)
-        self.pepperoni=tkinter.Checkbutton(self.toppingframe, text="Pepperoni", variable=self.pepperoni_var)
-        self.sausage=tkinter.Checkbutton(self.toppingframe, text="Sausage", variable=self.sausage_var)
-        self.peppers=tkinter.Checkbutton(self.toppingframe, text="Peppers", variable=self.peppers_var)
-        self.mushrooms=tkinter.Checkbutton(self.toppingframe, text="Mushrooms", variable=self.mushrooms_var)
+        self.cheese=tkinter.Checkbutton(self.toppingframe, text="Cheese", variable=self.cheese_var, fg='green')
+        self.pepperoni=tkinter.Checkbutton(self.toppingframe, text="Pepperoni", variable=self.pepperoni_var, fg='green')
+        self.sausage=tkinter.Checkbutton(self.toppingframe, text="Sausage", variable=self.sausage_var, fg='green')
+        self.peppers=tkinter.Checkbutton(self.toppingframe, text="Peppers", variable=self.peppers_var, fg='green')
+        self.mushrooms=tkinter.Checkbutton(self.toppingframe, text="Mushrooms", variable=self.mushrooms_var, fg='green')
 
         self.cheese.pack()
         self.pepperoni.pack()
@@ -95,27 +95,49 @@ class MyGUI:
         self.toppingframe.pack()
 
 #calculate and quit buttons
-        self.calc_button=tkinter.Button(self.main_window, text='Find my total', command= self.convert)
+        self.calc_button=tkinter.Button(self.bottomframe, text='Find my total', command= self.convert, fg='purple')
 
         #destroy will close the window
-        self.quitbutton=tkinter.Button(self.main_window, text='Quit', command= self.main_window.destroy)
+        self.quitbutton=tkinter.Button(self.bottomframe, text='Quit', command= self.main_window.destroy, fg='purple')
 
       
 
         self.calc_button.pack(side='left')
         self.quitbutton.pack(side='right')
+        self.bottomframe.pack()
 
 
         tkinter.mainloop()
 
 
     def convert(self):
-        kilo=float(self.kilo_entry.get())
+        name= self.name_entry.get()
+        crusttotal= str(self.crust_var.get())
+        total= float(crusttotal)
+     
+        cheese=0
+        pepperoni=1.5
+        sausage=2
+        mushrooms=1
+        peppers=.75
+        if self.cheese_var.get()==1:
+            total+=cheese
+        if self.pepperoni_var.get()==1:
+            total+=pepperoni
+        if self.sausage_var.get()==1:
+            total+=sausage
+        if self.peppers_var.get()==1:
+            total+=peppers
+        if self.mushrooms_var.get()==1:
+            total+=mushrooms
 
-        miles=round(kilo * 0.6214, 2)
+        
+
+        #toppingtotal= str()
+
 
         #the first is the title of the box, and the second is the message)
-        tkinter.messagebox.showinfo('Results', str(kilo)+' kilometers is equal to '+ str(miles)+ ' miles')
+        tkinter.messagebox.showinfo('My Pizza Price', "Name of Customer: " + str(name) +'\n' + 'Price of my pizza: ' + str(total))
 
 
 myGUI = MyGUI()
